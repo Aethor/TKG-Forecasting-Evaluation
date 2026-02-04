@@ -503,6 +503,7 @@ dataset_dict = {
     4: "YAGO",
     5: "WIKI",
     6: "GDELT",
+    7: "YAGO4.5",
 }
 
 
