@@ -28,4 +28,4 @@
 	url = https://github.com/nec-research/CEN
 [submodule "TRKG-Miner"]
 	path = TRKG-Miner
-	url = https://github.com/nec-research/TRKG-Miner
+	url = https://github.com/Aethor/TRKG-Miner
