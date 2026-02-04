@@ -1,6 +1,9 @@
 # TKG-Forecasting-Evaluation
 TKG Forecasting Evaluation Paper
 
+This is an updated version of the original repository with more
+up-to-date library, using uv instead of conda.
+
 **Please Cite our Paper**: 
 Julia Gastinger, Timo Sztyler, Lokesh Sharma, Anett Schuelke, Heiner Stuckenschmidt. Comparing Apples and Oranges? On the Evaluation of Methods for Temporal Knowledge Graphs. In *ECML PKDD, Torino, Italy*, 2023. [link](
 https://github.com/JuliaGast/JuliaGast.github.io/blob/master/files/gastinger_evaluation_paper_TKG.pdf)
@@ -22,11 +25,13 @@ https://openreview.net/pdf?id=J_SNklR-KR
 
 ## Set Up Experiments
 * make sure to uncomment each model of interest in run_exp.sh and select the datasets of interest, as specified in the comments. For example:
-```conda activate regcn 
- python3 run.py --gpu 1 --model 4 --num_seeds 1 --exp_name_int 0 --dataset_ids 1 3 4 5 6
+```sh
+source RE-GCN/.venv/bin/activate
+python3 run.py --gpu 1 --model 4 --num_seeds 1 --exp_name_int 0 --dataset_ids 1 3 4 5 6
  ```
  
 * if desired: check the desired hyperparameters and evaluation settings in run.py. multi-step and single-step setting can be set for each method with feedgt_list = [False, True]. False means multi-step, and True means single-step
+* if desired: use one of the dataset in this repository by copying it to the folder of a model
 * Create a folder "Results" for each model directory
 
 ## Run Experiments
