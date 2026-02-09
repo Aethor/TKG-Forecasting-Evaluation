@@ -208,7 +208,7 @@ def get_arguments_list(
                     w = 1000
                 else:
                     w = window
-        elif dataset == "YAGO" or dataset == "YAGO4.5":
+        elif dataset == "YAGO":
             p = 15
             p2 = 1
             if feedgt == False:
@@ -224,7 +224,7 @@ def get_arguments_list(
             f"-d {dataset} -c {runnr}_r[1,2,3]_n200_exp_s{seed}_cands_r[1,2,3]_w{w}_score_{seed}[0.1,0.5].json",
         ]
         if (
-            dataset == "WIKI" or dataset == "GDELT"
+            dataset == "WIKI" or dataset == "GDELT" or dataset == "YAGO4.5"
         ):  # special rule lengths for large datasets.
             p = 16
             p2 = 16
