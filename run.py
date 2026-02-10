@@ -238,7 +238,7 @@ def get_arguments_list(
             args_list = [
                 f"-d {dataset} --runnr {runnr} -l 1 2 -n 200 -p {p} --seed {seed}",
                 f"-d {dataset} -r {runnr}_r[1,2]_n200_exp_s{seed}_rules.json -l 1 2  -w {w} -p {p2}  --runnr {runnr} --seed {seed}",
-                f"-d {dataset} -c {runnr}_r[1,2]_n200_exp_s{seed}_cands_r[1,2,3]_w{w}_score_{seed}[0.1,0.5].json",
+                f"-d {dataset} -c {runnr}_r[1,2]_n200_exp_s{seed}_cands_r[1,2]_w{w}_score_{seed}[0.1,0.5].json",
             ]
 
     elif model == "RE-GCN":
