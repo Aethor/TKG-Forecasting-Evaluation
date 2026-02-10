@@ -3,7 +3,7 @@
 	url = https://github.com/nec-research/RE-Net.git
 [submodule "RE-GCN"]
 	path = RE-GCN
-	url = https://github.com/nec-research/RE-GCN
+        url = https://github.com/Aethor/RE-GCN
 [submodule "xERTE"]
 	path = xERTE
 	url = https://github.com/nec-research/xERTE
@@ -22,7 +22,6 @@
 [submodule "RE-NET"]
 	path = RE-NET
 	url = https://github.com/nec-research/RE-NET
-
 [submodule "CEN"]
 	path = CEN
 	url = https://github.com/nec-research/CEN
