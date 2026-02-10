@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu20.04
+FROM nvidia/cuda:13.0.2-cudnn-devel-ubuntu24.04
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 ADD . /TKG-Forecasting-Evaluation
