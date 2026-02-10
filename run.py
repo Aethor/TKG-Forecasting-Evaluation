@@ -881,7 +881,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--setseed",
         type=int,
-        default=0,
+        default=1,
         help="if 1: we set seed manually, if 0: do not set seed",
     )
     args = parser.parse_args()
