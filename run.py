@@ -691,7 +691,7 @@ def eval(args):
                         logging.debug(f"Feed the GT for testing: single step")
                         logging.debug(f"Testing parameters: {args_list[1]}")
                         os.system(
-                            "python main.py>>regcntest.txt -d {} {}".format(
+                            "python main.py>>regcntest_single.txt -d {} {}".format(
                                 dataset, args_list[1]
                             )
                         )
@@ -699,7 +699,7 @@ def eval(args):
                         logging.debug(f"Do NOT Feed the GT for testing: multi step")
                         logging.debug(f"Testing parameters: {args_list[2]}")
                         os.system(
-                            "python main.py>>regcntest.txt -d {} {}".format(
+                            "python main.py>>regcntest_multi.txt -d {} {}".format(
                                 dataset, args_list[2]
                             )
                         )
@@ -729,7 +729,7 @@ def eval(args):
                         logging.debug(f"Do not Feed the GT for testing: multi step")
                         logging.debug(f"Testing parameters: {args_list[2]}")
                         os.system(
-                            "python main.py>>centest_entityloss.txt -d {} {}".format(
+                            "python main.py>>centest_entityloss_single.txt -d {} {}".format(
                                 dataset, args_list[2]
                             )
                         )
@@ -744,7 +744,7 @@ def eval(args):
                         )
                         logging.debug(f"Testing parameters: {args_list[4]}")
                         os.system(
-                            "python main.py>>centest_entityloss.txt -d {} {}".format(
+                            "python main.py>>centest_entityloss_multi.txt -d {} {}".format(
                                 dataset, args_list[4]
                             )
                         )
