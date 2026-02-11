@@ -1,6 +1,3 @@
-[submodule "RE-Net"]
-	path = RE-Net
-	url = https://github.com/nec-research/RE-Net.git
 [submodule "RE-GCN"]
 	path = RE-GCN
         url = https://github.com/Aethor/RE-GCN
@@ -21,7 +18,7 @@
 	url = https://github.com/nec-research/Timetraveler
 [submodule "RE-NET"]
 	path = RE-NET
-	url = https://github.com/nec-research/RE-NET
+	url = https://github.com/Aethor/RE-Net
 [submodule "CEN"]
 	path = CEN
 	url = https://github.com/nec-research/CEN
