@@ -12,7 +12,7 @@
 	url = https://github.com/nec-research/CyGNet
 [submodule "TLogic"]
 	path = TLogic
-	url = https://github.com/nec-research/TLogic
+        url = https://github.com/quadforks/TLogic
 [submodule "TANGO"]
 	path = TANGO
 	url = https://github.com/nec-research/TANGO
