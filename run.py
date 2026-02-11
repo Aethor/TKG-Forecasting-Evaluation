@@ -665,7 +665,7 @@ def eval(args):
                 # 1st index: testing with ground history
                 # 2nd index: testing without ground history
                 # ----------------------------------------------------------Train
-                if dataset in ["ICEWS14", "ICEWS18", "ICEWS05-15"]:
+                if dataset in ["ICEWS14", "ICEWS18", "ICEWS05-15", "YAGO4.5"]:
                     os.chdir(os.path.join(model_dir, "data", dataset))
                     os.system("python ent2word.py")
                 os.chdir(os.path.join(model_dir, "src"))
