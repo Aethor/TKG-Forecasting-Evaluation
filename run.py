@@ -224,7 +224,7 @@ def get_arguments_list(
             f"-d {dataset} -c {runnr}_r[1,2,3]_n200_exp_s{seed}_cands_r[1,2,3]_w{w}_score_{seed}[0.1,0.5].json",
         ]
         # special rule lengths for large datasets.
-        if dataset == "WIKI" or dataset == "GDELT"):  
+        if dataset == "WIKI" or dataset == "GDELT":
             p = 16
             p2 = 16
             if feedgt == False:
