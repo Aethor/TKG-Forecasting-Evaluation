@@ -498,29 +498,6 @@ def get_arguments_list(
     return args_list
 
 
-d_dict = {
-    1: "CyGNet",
-    2: "xERTE",
-    3: "RE-Net",
-    4: "RE-GCN",
-    5: "TLogic",
-    6: "TANGO",
-    7: "Timetraveler",
-    8: "CEN",
-    9: "TRKG-Miner",
-}
-
-dataset_dict = {
-    1: "ICEWS18",
-    2: "ICEWS05-15",
-    3: "ICEWS14",
-    4: "YAGO",
-    5: "WIKI",
-    6: "GDELT",
-    7: "YAGO4.5",
-}
-
-
 # start preprocessing, training and testing of each method as specified in args on datasets as specified in args and
 # gpu as specified in args
 # hyperparams are set in get_arguments_list, following the instructions in original papers
@@ -529,8 +506,7 @@ def eval(args):
     time.sleep(5)
     root_dir = os.getcwd()
 
-    model = int(args.model)
-    model = d_dict[model]
+    model = args.model
     gpu = str(args.gpu)
 
     exp_int = args.exp_name_int
@@ -549,15 +525,7 @@ def eval(args):
         level=logging.DEBUG,
     )
 
-    dataset_ids = args.dataset_ids
-    dataset_list = [dataset_ids] if (type(dataset_ids) == int) else dataset_ids
-    print("dataset_list", dataset_list)
-    datasets = []
-    if int(dataset_list[0]) == 0:
-        datasets = ["ICEWS18", "ICEWS05-15", "ICEWS14", "YAGO", "WIKI", "GDELT"]
-    else:
-        for id in dataset_list:
-            datasets.append(dataset_dict[int(id)])
+    datasets = args.datasets
     print("datasets", datasets)
 
     for run in range(start_index, end_index):
@@ -874,12 +842,34 @@ def eval(args):
     logging.debug("************** END ************** Experiment No: " + str(exp_int))
 
 
+MODELS = [
+    "CyGNet",
+    "xERTE",
+    "RE-Net",
+    "RE-GCN",
+    "TLogic",
+    "TANGO",
+    "Timetraveler",
+    "CEN",
+    "TRKG-Miner",
+]
+
+DATASETS = [
+    "ICEWS18",
+    "ICEWS05-15",
+    "ICEWS14",
+    "YAGO",
+    "WIKI",
+    "GDELT",
+    "YAGO4.5",
+]
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="experiments")
     parser.add_argument(
         "--gpu", type=int, default=0, help="gpu. -1: cpu, if possible with method"
     )
-    parser.add_argument("--model", type=int, default=3, help=str(d_dict))
+    parser.add_argument("--model", type=str, default="CyGNet", help=str(MODELS))
     parser.add_argument(
         "--num_seeds", type=int, default=1, help="number of repetitions 1,...,10"
     )
@@ -890,7 +880,7 @@ if __name__ == "__main__":
         help="experiment name. if higher than 0: will be added to the run-num for logging",
     )
     parser.add_argument(
-        "--dataset_ids", type=int, nargs="+", default=0, help=str(dataset_dict)
+        "--datasets", type=str, nargs="+", default="ICEWS18", help=str(DATASETS)
     )
     parser.add_argument(
         "--setseed",
