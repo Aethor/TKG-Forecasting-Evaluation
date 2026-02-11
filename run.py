@@ -159,7 +159,7 @@ def get_arguments_list(
     Return the args for each method, according to seetings in run_exp.sh and in run.py
     and according to hyperparameter settigns as reported in paper.
     """
-    if model == "RE-Net":
+    if model == "RE-NET":
         print(runnr)
         args_list = [
             f"--gpu {gpu} --dropout 0.5 --n-hidden 200 --lr 1e-3 --max-epochs 20 --batch-size 1024 --runnr {runnr} ",
@@ -541,9 +541,9 @@ def eval(args):
         for dataset in datasets:
             model_dir = os.path.join(root_dir, model)
             os.chdir(model_dir)
-            if model == "RE-Net":  # renet trains always with the same metric.
+            if model == "RE-NET":  # renet trains always with the same metric.
                 setting = "raw"
-                feedgt_list = [False]  # we only know multi-step setting for RE-Net
+                feedgt_list = [False]  # we only know multi-step setting for RE-NET
                 logging.debug(
                     "{} {} - {} - {}".format("_" * 30, model, dataset, setting)
                 )
@@ -845,7 +845,7 @@ def eval(args):
 MODELS = [
     "CyGNet",
     "xERTE",
-    "RE-Net",
+    "RE-NET",
     "RE-GCN",
     "TLogic",
     "TANGO",
