@@ -153,7 +153,15 @@ import logging
 
 
 def get_arguments_list(
-    dataset, model, gpu, setting, feedgt="False", runnr=0, window=None, setseed=1
+    dataset: str,
+    dataset_for_hyperparams: str,
+    model: str,
+    gpu,
+    setting,
+    feedgt="False",
+    runnr=0,
+    window=None,
+    setseed=1,
 ):
     """
     Return the args for each method, according to seetings in run_exp.sh and in run.py
@@ -178,7 +186,7 @@ def get_arguments_list(
         p = 0  # num processes for learning rules
         p2 = 0  # num processes for rule application
         w = 0  # window size. 0 = infinite, singlestep. -1 and -200: multistep.
-        if dataset == "ICEWS18":
+        if dataset_for_hyperparams == "ICEWS18":
             p = 15
             p2 = 1
             if feedgt == False:
@@ -188,7 +196,7 @@ def get_arguments_list(
                     w = 200
                 else:
                     w = window
-        elif dataset == "ICEWS14":
+        elif dataset_for_hyperparams == "ICEWS14":
             p = 16
             p2 = 1
             if feedgt == False:
@@ -198,7 +206,7 @@ def get_arguments_list(
                     w = 0
                 else:
                     w = window
-        elif dataset == "ICEWS05-15":
+        elif dataset_for_hyperparams == "ICEWS05-15":
             p = 15
             p2 = 1
             if feedgt == False:
@@ -208,7 +216,7 @@ def get_arguments_list(
                     w = 1000
                 else:
                     w = window
-        elif dataset == "YAGO":
+        elif dataset_for_hyperparams == "YAGO":
             p = 15
             p2 = 1
             if feedgt == False:
@@ -224,7 +232,7 @@ def get_arguments_list(
             f"-d {dataset} -c {runnr}_r[1,2,3]_n200_exp_s{seed}_cands_r[1,2,3]_w{w}_score_{seed}[0.1,0.5].json",
         ]
         # special rule lengths for large datasets.
-        if dataset == "WIKI" or dataset == "GDELT":
+        if dataset_for_hyperparams == "WIKI" or dataset_for_hyperparams == "GDELT":
             p = 16
             p2 = 16
             if feedgt == False:
@@ -239,7 +247,7 @@ def get_arguments_list(
                 f"-d {dataset} -r {runnr}_r[1,2]_n200_exp_s{seed}_rules.json -l 1 2  -w {w} -p {p2}  --runnr {runnr} --seed {seed}",
                 f"-d {dataset} -c {runnr}_r[1,2]_n200_exp_s{seed}_cands_r[1,2]_w{w}_score_{seed}[0.1,0.5].json",
             ]
-        elif dataset == "YAGO4.5":
+        elif dataset_for_hyperparams == "YAGO4.5":
             p = 16
             p2 = 16
             if feedgt == False:
@@ -256,50 +264,50 @@ def get_arguments_list(
             ]
 
     elif model == "RE-GCN":
-        if dataset == "YAGO":
+        if dataset_for_hyperparams == "YAGO":
             args_list = [
                 f"--n-epochs 24 --train-history-len 1 --test-history-len 1 --dilate-len 1 --lr 0.001 --n-layers 1 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --runnr {runnr}",
                 f"--train-history-len 1 --test-history-len 1 --dilate-len 1 --lr 0.001 --n-layers 1 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --runnr {runnr}",
                 f"--train-history-len 1 --test-history-len 1 --dilate-len 1 --lr 0.001 --n-layers 1 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --multi-step --topk 0 --runnr {runnr}",
             ]
-        elif dataset == "ICEWS14":
+        elif dataset_for_hyperparams == "ICEWS14":
             args_list = [
                 f"--n-epochs 24 --train-history-len 3 --test-history-len 3 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --add-static-graph --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --runnr {runnr}",
                 f"--train-history-len 3 --test-history-len 3 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --add-static-graph --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --runnr {runnr}",
                 f"--train-history-len 3 --test-history-len 3 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --add-static-graph --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --multi-step --topk 0 --runnr {runnr}",
             ]
-        elif dataset == "ICEWS18":
+        elif dataset_for_hyperparams == "ICEWS18":
             args_list = [
                 f"--n-epochs 24 --train-history-len 6 --test-history-len 6 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --add-static-graph --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --runnr {runnr}",
                 f"--train-history-len 6 --test-history-len 6 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --add-static-graph --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --runnr {runnr}",
                 f"--train-history-len 6 --test-history-len 6 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --add-static-graph --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --multi-step --topk 0 --runnr {runnr}",
             ]
-        elif dataset == "GDELT":
+        elif dataset_for_hyperparams == "GDELT":
             args_list = [
                 f"--n-epochs 24 --train-history-len 1 --test-history-len 1 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --runnr {runnr}",
                 f"--train-history-len 1 --test-history-len 1 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --runnr {runnr}",
                 f"--train-history-len 1 --test-history-len 1 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --multi-step --topk 0 --runnr {runnr}",
             ]
-        elif dataset == "YAGO4.5":
+        elif dataset_for_hyperparams == "YAGO4.5":
             args_list = [
                 f"--n-epochs 24 --train-history-len 1 --test-history-len 1 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --runnr {runnr}",
                 f"--train-history-len 1 --test-history-len 1 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --runnr {runnr}",
                 f"--train-history-len 1 --test-history-len 1 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --multi-step --topk 10 --runnr {runnr}",
             ]
-        elif dataset == "WIKI":
+        elif dataset_for_hyperparams == "WIKI":
             args_list = [
                 f"--n-epochs 24 --train-history-len 2 --test-history-len 2 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --runnr {runnr}",
                 f"--train-history-len 2 --test-history-len 2 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --runnr {runnr}",
                 f"--train-history-len 2 --test-history-len 2 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --multi-step --topk 0 --runnr {runnr}",
             ]
-        elif dataset == "ICEWS05-15":
+        elif dataset_for_hyperparams == "ICEWS05-15":
             args_list = [
                 f"--n-epochs 24 --train-history-len 10 --test-history-len 10 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --add-static-graph --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --runnr {runnr}",
                 f"--train-history-len 10 --test-history-len 10 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --add-static-graph --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --runnr {runnr}",
                 f"--train-history-len 10 --test-history-len 10 --dilate-len 1 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm --weight 0.5  --entity-prediction --relation-prediction --add-static-graph --angle 10 --discount 1 --task-weight 0.7 --gpu {gpu} --test --topk 0 --runnr {runnr}",
             ]
         elif model == "CEN":
-            if dataset == "ICEWS14":
+            if dataset_for_hyperparams == "ICEWS14":
                 args_list = [
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 3 --train-history-len 10 --test-history-len 10 --test -1  --ft_lr=0.001 --norm_weight 1 --gpu {gpu} ",
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 3 --train-history-len 10 --test-history-len 10 --test 0  --ft_lr=0.001 --norm_weight 1 --gpu {gpu} ",
@@ -307,7 +315,7 @@ def get_arguments_list(
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 3 --train-history-len 10 --test-history-len 7 --test 3  --ft_lr=0.001 --norm_weight 1 --gpu {gpu}",
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 3 --train-history-len 10 --test-history-len 7 --test 4  --ft_lr=0.001 --norm_weight 1 --gpu {gpu}",
                 ]
-            elif dataset == "ICEWS18":
+            elif dataset_for_hyperparams == "ICEWS18":
                 args_list = [
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 3 --train-history-len 10 --test-history-len 10 --test -1  --ft_lr=0.001 --norm_weight 1 --gpu {gpu} ",
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 3 --train-history-len 10 --test-history-len 10 --test 0  --ft_lr=0.001 --norm_weight 1 --gpu {gpu} ",
@@ -315,7 +323,7 @@ def get_arguments_list(
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 3 --train-history-len 10 --test-history-len 6 --test 3  --ft_lr=0.001 --norm_weight 1 --gpu {gpu}",
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 3 --train-history-len 10 --test-history-len 6 --test 4  --ft_lr=0.001 --norm_weight 1 --gpu {gpu}",
                 ]
-            elif dataset == "WIKI":
+            elif dataset_for_hyperparams == "WIKI":
                 args_list = [
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 2 --train-history-len 10 --test-history-len 10 --test -1  --ft_lr=0.001 --norm_weight 1 --gpu {gpu} ",
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 2 --train-history-len 10 --test-history-len 10 --test 0  --ft_lr=0.001 --norm_weight 1 --gpu {gpu} ",
@@ -323,7 +331,7 @@ def get_arguments_list(
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 2 --train-history-len 10 --test-history-len 2 --test 3  --ft_lr=0.001 --norm_weight 1 --gpu {gpu}",
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 2 --train-history-len 10 --test-history-len 2 --test 4  --ft_lr=0.001 --norm_weight 1 --gpu {gpu}",
                 ]
-            elif dataset == "GDELT":  # hyperparams as for WIKI
+            elif dataset_for_hyperparams == "GDELT":  # hyperparams as for WIKI
                 args_list = [
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 2 --train-history-len 10 --test-history-len 10 --test -1  --ft_lr=0.001 --norm_weight 1 --gpu {gpu} ",
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 2 --train-history-len 10 --test-history-len 10 --test 0  --ft_lr=0.001 --norm_weight 1 --gpu {gpu} ",
@@ -331,7 +339,10 @@ def get_arguments_list(
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 2 --train-history-len 10 --test-history-len 10 --test 3  --ft_lr=0.001 --norm_weight 1 --gpu {gpu}",
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 2 --train-history-len 10 --test-history-len 10 --test 4  --ft_lr=0.001 --norm_weight 1 --gpu {gpu}",
                 ]
-            if dataset == "YAGO" or dataset == "YAGO4.5":  # hyperparams as for ICEWS14
+            if (
+                dataset_for_hyperparams == "YAGO"
+                or dataset_for_hyperparams == "YAGO4.5"
+            ):  # hyperparams as for ICEWS14
                 args_list = [
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 3 --train-history-len 10 --test-history-len 10 --test -1  --ft_lr=0.001 --norm_weight 1 --gpu {gpu} ",
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 3 --train-history-len 10 --test-history-len 10 --test 0  --ft_lr=0.001 --norm_weight 1 --gpu {gpu} ",
@@ -339,39 +350,42 @@ def get_arguments_list(
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 3 --train-history-len 10 --test-history-len 3 --test 3  --ft_lr=0.001 --norm_weight 1 --gpu {gpu}",
                     f"--dilate-len 1 --n-epochs 30 --lr 0.001 --n-layers 2 --evaluate-every 1 --n-hidden 200 --self-loop --decoder convtranse --encoder uvrgcn --layer-norm  --entity-prediction -d {dataset} --start-history-len 3 --train-history-len 10 --test-history-len 3 --test 4  --ft_lr=0.001 --norm_weight 1 --gpu {gpu}",
                 ]
+
     elif model == "CyGNet":
-        if dataset == "ICEWS18":
+        if dataset_for_hyperparams == "ICEWS18":
             args_list = [
                 f"--entity object --time-stamp 24 -alpha 0.8 -lr 0.001 --n-epoch 30 --hidden-dim 200 -gpu {gpu} --batch-size 1024 --counts 4 --valid-epoch 5 --setting {setting}",
                 f"--entity subject --time-stamp 24 -alpha 0.8 -lr 0.001 --n-epoch 30 --hidden-dim 200 -gpu {gpu} --batch-size 1024 --counts 4 --valid-epoch 5 --setting {setting}",
             ]
 
-        elif dataset == "ICEWS14":
+        elif dataset_for_hyperparams == "ICEWS14":
             args_list = [
                 f"--entity object --time-stamp 24 -alpha 0.8 -lr 0.001 --n-epoch 30 --hidden-dim 200 -gpu {gpu} --batch-size 1024 --counts 4 --valid-epoch 5 --setting {setting}",
                 f"--entity subject --time-stamp 24 -alpha 0.8 -lr 0.001 --n-epoch 30 --hidden-dim 200 -gpu {gpu} --batch-size 1024 --counts 4 --valid-epoch 5 --setting {setting}",
             ]
 
-        elif dataset == "GDELT":
+        elif dataset_for_hyperparams == "GDELT":
             args_list = [
                 f"--entity object --time-stamp 15 -alpha 0.7 -lr 0.001 --n-epoch 30 --hidden-dim 200 -gpu {gpu} --batch-size 1024 --counts 2 --valid-epoch 1 --setting {setting}",
                 f"--entity subject --time-stamp 15 -alpha 0.7 -lr 0.001 --n-epoch 30 --hidden-dim 200 -gpu {gpu} --batch-size 1024 --counts 2 --valid-epoch 1 --setting {setting}",
             ]
 
-        elif dataset == "YAGO" or dataset == "YAGO4.5":
+        elif dataset_for_hyperparams == "YAGO" or dataset_for_hyperparams == "YAGO4.5":
             args_list = [
                 f"--entity object --time-stamp 1 -alpha 0.5 -lr 0.001 --n-epoch 30 --hidden-dim 200 -gpu {gpu} --batch-size 1024 --counts 4 --valid-epoch 5 --setting {setting}",
                 f"--entity subject --time-stamp 1 -alpha 0.5 -lr 0.001 --n-epoch 30 --hidden-dim 200 -gpu {gpu} --batch-size 1024 --counts 4 --valid-epoch 5 --setting {setting}",
             ]
 
-        elif dataset == "WIKI":
+        elif dataset_for_hyperparams == "WIKI":
             args_list = [
                 f"--entity object --time-stamp 1 -alpha 0.5 -lr 0.001 --n-epoch 30 --hidden-dim 200 -gpu {gpu} --batch-size 1024 --counts 4 --valid-epoch 5 --setting {setting}",
                 f"--entity subject --time-stamp 1 -alpha 0.5 -lr 0.001 --n-epoch 30 --hidden-dim 200 -gpu {gpu} --batch-size 1024 --counts 4 --valid-epoch 5 --setting {setting}",
             ]
 
     elif model == "TANGO":
-        if dataset == "ICEWS18":  # --input_step {4} days  --core_layer 2  --jump_init 1
+        if (
+            dataset_for_hyperparams == "ICEWS18"
+        ):  # --input_step {4} days  --core_layer 2  --jump_init 1
             if feedgt == True:
                 num_test_timesteps = 1
             else:
@@ -383,7 +397,7 @@ def get_arguments_list(
             w = 1
             input_step = 4
         elif (
-            dataset == "ICEWS14"
+            dataset_for_hyperparams == "ICEWS14"
         ):  # --input_step {4} days --scale 0.01 --jump_init 0.01
             if feedgt == True:
                 num_test_timesteps = 1
@@ -396,7 +410,7 @@ def get_arguments_list(
             w = 0.01
             input_step = 4
         elif (
-            dataset == "GDELT"
+            dataset_for_hyperparams == "GDELT"
         ):  # --input_step {4} NOT SPECIFIED! using same configurations as WIKI
             if feedgt == True:
                 num_test_timesteps = 1
@@ -409,7 +423,7 @@ def get_arguments_list(
             w = 1
             input_step = 4
         elif (
-            dataset == "YAGO" or dataset == "YAGO4.5"
+            dataset_for_hyperparams == "YAGO" or dataset_for_hyperparams == "YAGO4.5"
         ):  # --input_step {4} years --embsize 300 --core_layer 3 # maybe also --initsize {300} and --hiddensize {300} --score_func distmult --jump_init 1
             if feedgt == True:
                 num_test_timesteps = 1
@@ -422,7 +436,7 @@ def get_arguments_list(
             w = 1
             input_step = 4
         elif (
-            dataset == "WIKI"
+            dataset_for_hyperparams == "WIKI"
         ):  # --input_step {4} years --score_func distmult --jump_init 1
             if feedgt == True:
                 num_test_timesteps = 1
@@ -438,20 +452,21 @@ def get_arguments_list(
             f"--device cuda:{gpu} --dataset {dataset} --setting {setting} --target_step {num_test_timesteps} --embsize {embsize} --core_layer {core_layer} --score_func {score_func} --scale {scale} --jump_init {w} --input_step {input_step} ",  # train
             f"--device cuda:{gpu} --resume --dataset {dataset} --setting {setting} --target_step {num_test_timesteps} --embsize {embsize} --core_layer {core_layer} --score_func {score_func} --scale {scale} --jump_init {w} --input_step {input_step} --test",
         ]  # test
+
     elif model == "xERTE":
         if feedgt == True:
             singleormultistep = "singlestep"
         else:
             singleormultistep = "multistep"
-        if dataset == "ICEWS18":
+        if dataset_for_hyperparams == "ICEWS18":
             args_list = [
                 f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 128 --lr 0.0002 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 60 --node_score_aggregation sum --ent_score_aggregation sum --ratio_update 0.75 --setting {setting} --singleormultistep {singleormultistep}"
             ]
-        elif dataset == "ICEWS14":
+        elif dataset_for_hyperparams == "ICEWS14":
             args_list = [
                 f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 128 --lr 0.0002 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 40 --node_score_aggregation sum --ent_score_aggregation sum --setting {setting} --singleormultistep {singleormultistep}"
             ]
-        elif dataset == "YAGO":
+        elif dataset_for_hyperparams == "YAGO":
             args_list = [
                 f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 128 --lr 0.0002 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 60 --node_score_aggregation sum --ent_score_aggregation sum --ratio_update 0.75 --setting {setting} --singleormultistep {singleormultistep}"
             ]
@@ -460,20 +475,24 @@ def get_arguments_list(
                 f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 128 --lr 0.0002 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 60 --node_score_aggregation sum --ent_score_aggregation sum --ratio_update 0.75 --setting {setting} --singleormultistep {singleormultistep}"
             ]
             # no hyperparams specified for WIKI and GDELT. I use the hyperparams from YAGO and ICEWS18, as most similar
+
     elif model == "Timetraveler":
         trainflag = True  # set to false if only testing
         k = 305  # to cover all train timestamps for all datasets except GDELT for mle_dirichlet.py
-        print("dataset ", dataset)
-        if dataset == "ICEWS14" or dataset == "ICEWS0515" or dataset == "ICEWS18":
+        if (
+            dataset_for_hyperparams == "ICEWS14"
+            or dataset_for_hyperparams == "ICEWS0515"
+            or dataset_for_hyperparams == "ICEWS18"
+        ):
             timespan = 24
             N = 50
-        elif dataset == "GDELT":
+        elif dataset_for_hyperparams == "GDELT":
             timespan = 15
             N = 60  # because closest to WIKI
             k = 2304  # to cover all train timestamps
         else:
             timespan = 1
-            if dataset == "YAGO":
+            if dataset_for_hyperparams == "YAGO":
                 N = 30
             else:  # WIKI
                 N = 60
@@ -544,9 +563,14 @@ def eval(args):
             + " seed: "
             + str(run - start_index)
         )
-        for dataset in datasets:
+        for dataset_i, dataset in enumerate(datasets):
             model_dir = os.path.join(root_dir, model)
+            dataset_for_hyperparams = dataset
+            if args.override_hyperparameters is not None:
+                assert len(args.override_hyperparameters) == len(datasets)
+                dataset_for_hyperparams = args.override_hyperparameters[dataset_i]
             os.chdir(model_dir)
+
             if model == "RE-NET":  # renet trains always with the same metric.
                 setting = "raw"
                 feedgt_list = [False]  # we only know multi-step setting for RE-NET
@@ -554,7 +578,13 @@ def eval(args):
                     "{} {} - {} - {}".format("_" * 30, model, dataset, setting)
                 )
                 args_list = get_arguments_list(
-                    dataset, model, gpu, setting, feedgt_list[0], run
+                    dataset,
+                    dataset_for_hyperparams,
+                    model,
+                    gpu,
+                    setting,
+                    feedgt_list[0],
+                    run,
                 )
                 print(args_list)
                 # ----------------------------------------------------------Train
@@ -887,6 +917,13 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--datasets", type=str, nargs="+", default="ICEWS18", help=str(DATASETS)
+    )
+    parser.add_argument(
+        "--override-hyperparameters",
+        type=str,
+        nargs="*",
+        default=None,
+        help=f"If specified, use hyperparameters from the specified dataset instead of the one specified by --dataset. Should be one of {str(DATASETS)}.",
     )
     parser.add_argument(
         "--setseed",
