@@ -600,7 +600,13 @@ def eval(args):
                 # ----------------------------------------------------------Test without ground truth
                 for feedgt in feedgt_list:  # for feedgt =False (multistep) and = True (single step) settings. TODO: implement single step
                     args_list = get_arguments_list(
-                        dataset, model, gpu, setting, feedgt, run
+                        dataset,
+                        dataset_for_hyperparams,
+                        model,
+                        gpu,
+                        setting,
+                        feedgt,
+                        run,
                     )
                     print(args_list)
                     logging.debug(f"Testing parameters: {args_list[2]}")
@@ -619,6 +625,7 @@ def eval(args):
                     )
                     args_list = get_arguments_list(
                         dataset,
+                        dataset_for_hyperparams,
                         model,
                         gpu,
                         setting,
@@ -649,6 +656,7 @@ def eval(args):
                     )
                     args_list = get_arguments_list(
                         dataset,
+                        dataset_for_hyperparams,
                         model,
                         gpu,
                         setting,
@@ -677,7 +685,12 @@ def eval(args):
                     )
                 )
                 args_list = get_arguments_list(
-                    dataset, model, gpu, setting="Raw & Time", runnr=run
+                    dataset,
+                    dataset_for_hyperparams,
+                    model,
+                    gpu,
+                    setting="Raw & Time",
+                    runnr=run,
                 )
                 # 0th index: training
                 # 1st index: testing with ground history
@@ -714,7 +727,9 @@ def eval(args):
                         "_" * 30, model, dataset, "Raw and Time ONLY"
                     )
                 )
-                args_list = get_arguments_list(dataset, model, gpu, setting="Time")
+                args_list = get_arguments_list(
+                    dataset, dataset_for_hyperparams, model, gpu, setting="Time"
+                )
                 # 0th index: Pretrain models with the minimum length.
                 # 1st index: Curriculum Training.
                 # 2nd index: Evaluate the offline models
@@ -760,7 +775,7 @@ def eval(args):
                         "{} {} - {} - {}".format("_" * 30, model, dataset, setting)
                     )
                     args_list = get_arguments_list(
-                        dataset, model, gpu, setting, runnr=run
+                        dataset, dataset_for_hyperparams, model, gpu, setting, runnr=run
                     )
                     print("args", args_list)
 
@@ -814,7 +829,13 @@ def eval(args):
                             )
                         )
                         args_list = get_arguments_list(
-                            dataset, model, gpu, setting, feedgt=feedgt, runnr=run
+                            dataset,
+                            dataset_for_hyperparams,
+                            model,
+                            gpu,
+                            setting,
+                            feedgt=feedgt,
+                            runnr=run,
                         )
                         # ----------------------------------------------------------Train
                         logging.debug(f"Training parameters: {args_list[0]}")
@@ -838,7 +859,13 @@ def eval(args):
                             )
                         )
                         args_list = get_arguments_list(
-                            dataset, model, gpu, setting, feedgt=feedgt, runnr=run
+                            dataset,
+                            dataset_for_hyperparams,
+                            model,
+                            gpu,
+                            setting,
+                            feedgt=feedgt,
+                            runnr=run,
                         )
                         logging.debug(
                             f"Training and testing parameters: {args_list[0]}"
@@ -858,7 +885,13 @@ def eval(args):
                         )
                         datadirstring = "--data_dir data/" + str(dataset)
                         args_list = get_arguments_list(
-                            dataset, model, gpu, setting, feedgt=feedgt, runnr=run
+                            dataset,
+                            dataset_for_hyperparams,
+                            model,
+                            gpu,
+                            setting,
+                            feedgt=feedgt,
+                            runnr=run,
                         )
 
                         os.system(
