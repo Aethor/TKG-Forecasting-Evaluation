@@ -3,16 +3,13 @@
         url = https://github.com/Aethor/RE-GCN
 [submodule "xERTE"]
 	path = xERTE
-	url = https://github.com/nec-research/xERTE
-[submodule "CyGNet"]
-	path = CyGNet
-	url = https://github.com/nec-research/CyGNet
+	url = https://github.com/Aethor/xERTE
 [submodule "TLogic"]
 	path = TLogic
         url = https://github.com/quadforks/TLogic
 [submodule "TANGO"]
 	path = TANGO
-	url = https://github.com/nec-research/TANGO
+	url = https://github.com/Aethor/TANGO
 [submodule "Timetraveler"]
 	path = Timetraveler
 	url = https://github.com/Aethor/Timetraveler
@@ -21,7 +18,7 @@
 	url = https://github.com/Aethor/RE-Net
 [submodule "CEN"]
 	path = CEN
-	url = https://github.com/nec-research/CEN
+	url = https://github.com/Aethor/CEN
 [submodule "TRKG-Miner"]
 	path = TRKG-Miner
 	url = https://github.com/Aethor/TRKG-Miner
