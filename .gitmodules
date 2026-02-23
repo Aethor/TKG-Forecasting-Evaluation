@@ -15,7 +15,7 @@
 	url = https://github.com/nec-research/TANGO
 [submodule "Timetraveler"]
 	path = Timetraveler
-	url = https://github.com/nec-research/Timetraveler
+	url = https://github.com/Aethor/Timetraveler
 [submodule "RE-NET"]
 	path = RE-NET
 	url = https://github.com/Aethor/RE-Net
