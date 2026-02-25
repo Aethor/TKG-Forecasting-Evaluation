@@ -460,19 +460,19 @@ def get_arguments_list(
             singleormultistep = "multistep"
         if dataset_for_hyperparams == "ICEWS18":
             args_list = [
-                f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 128 --lr 0.0002 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 60 --node_score_aggregation sum --ent_score_aggregation sum --ratio_update 0.75 --setting {setting} --singleormultistep {singleormultistep}"
+                f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 512 --lr 0.0005 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 60 --node_score_aggregation sum --ent_score_aggregation sum --ratio_update 0.75 --setting {setting} --singleormultistep {singleormultistep}"
             ]
         elif dataset_for_hyperparams == "ICEWS14":
             args_list = [
-                f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 128 --lr 0.0002 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 40 --node_score_aggregation sum --ent_score_aggregation sum --setting {setting} --singleormultistep {singleormultistep}"
+                f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 512 --lr 0.0005 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 40 --node_score_aggregation sum --ent_score_aggregation sum --setting {setting} --singleormultistep {singleormultistep}"
             ]
         elif dataset_for_hyperparams == "YAGO":
             args_list = [
-                f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 128 --lr 0.0002 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 60 --node_score_aggregation sum --ent_score_aggregation sum --ratio_update 0.75 --setting {setting} --singleormultistep {singleormultistep}"
+                f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 512 --lr 0.0005 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 60 --node_score_aggregation sum --ent_score_aggregation sum --ratio_update 0.75 --setting {setting} --singleormultistep {singleormultistep}"
             ]
         else:
             args_list = [
-                f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 128 --lr 0.0002 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 60 --node_score_aggregation sum --ent_score_aggregation sum --ratio_update 0.75 --setting {setting} --singleormultistep {singleormultistep}"
+                f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 512 --lr 0.0005 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 60 --node_score_aggregation sum --ent_score_aggregation sum --ratio_update 0.75 --setting {setting} --singleormultistep {singleormultistep}"
             ]
             # no hyperparams specified for WIKI and GDELT. I use the hyperparams from YAGO and ICEWS18, as most similar
 
