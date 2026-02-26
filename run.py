@@ -470,6 +470,10 @@ def get_arguments_list(
             args_list = [
                 f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 256 --lr 0.0003 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 60 --node_score_aggregation sum --ent_score_aggregation sum --ratio_update 0.75 --setting {setting} --singleormultistep {singleormultistep}"
             ]
+        elif dataset_for_hyperparams == "YAGO4.5":
+            args_list = [
+                f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 256 --lr 0.0003 --dataset {dataset} --epoch 3 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 60 --node_score_aggregation sum --ent_score_aggregation sum --ratio_update 0.75 --setting {setting} --singleormultistep {singleormultistep}"
+            ]
         else:
             args_list = [
                 f"--warm_start_time 48 --emb_dim 256 128 64 32 --batch_size 256 --lr 0.0003 --dataset {dataset} --epoch 10 --sampling 3 --device {gpu}  --DP_steps 3 --DP_num_edges 15 --max_attended_edges 60 --node_score_aggregation sum --ent_score_aggregation sum --ratio_update 0.75 --setting {setting} --singleormultistep {singleormultistep}"
