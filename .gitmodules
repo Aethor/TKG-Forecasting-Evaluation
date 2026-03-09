@@ -22,3 +22,6 @@
 [submodule "TRKG-Miner"]
 	path = TRKG-Miner
 	url = https://github.com/Aethor/TRKG-Miner
+[submodule "CyGNet"]
+	path = CyGNet
+	url = https://github.com/Aethor/CyGNet
