@@ -784,7 +784,8 @@ def eval(args):
                             )
                         )
             elif model == "CyGNet":
-                settings = ["time", "static", "raw"]
+                # settings = ["time", "static", "raw"]
+                settings = ["time"]  # we are only interested in the time-filter setting
                 for setting in settings:
                     feedgt_list = [False]  # we only know multi-step setting
                     logging.debug(
